@@ -1,0 +1,13 @@
+# Keep only src/ directory in git
+# Everything else is ignored by default
+*
+!src/
+src/**
+!src/**/
+.gitignore
+.gitattributes
+*.gradle
+gradlew
+gradlew.bat
+build.gradle
+settings.gradle
