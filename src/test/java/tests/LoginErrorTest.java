@@ -22,10 +22,15 @@ public class LoginErrorTest extends BaseTest {
                 .setPassword(PASSWORD)
                 .clickLogin();
 
-        loginPage.getErrorMessage()
-                .shouldBe(com.codeborne.selenide.Condition.visible)
-                .shouldHave(text(EXPECTED_ERROR));
+        // Wait for error message to appear
+        com.codeborne.selenide.Selenide.sleep(2000);
 
+        // Check if error message is visible
+        boolean isErrorVisible = loginPage.isErrorMessageVisible();
+        assertTrue(isErrorVisible,
+                "Error message should be visible after invalid login");
+
+        // Verify error text
         String actualError = loginPage.getErrorMessageText();
         assertTrue(actualError.contains(EXPECTED_ERROR),
                 "Expected error message: " + EXPECTED_ERROR + ", but got: " + actualError);

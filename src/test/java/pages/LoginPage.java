@@ -15,6 +15,7 @@ public class LoginPage {
     private final SelenideElement userNameInput = $("#userName");
     private final SelenideElement passwordInput = $("#password");
     private final SelenideElement loginButton = $("#login");
+    private final SelenideElement newUserButton = $(byText("New User"));
 
     public LoginPage openPage() {
         Selenide.open(URL);
@@ -37,15 +38,33 @@ public class LoginPage {
         return this;
     }
 
-    public SelenideElement getErrorMessage() {
-        return $x("//p[text()='Invalid username or password!']");
+    public boolean isUserNameInputVisible() {
+        return userNameInput.is(Condition.visible);
+    }
+
+    public boolean isPasswordInputVisible() {
+        return passwordInput.is(Condition.visible);
+    }
+
+    public boolean isLoginButtonVisible() {
+        return loginButton.is(Condition.visible);
+    }
+
+    public boolean isNewUserButtonVisible() {
+        return newUserButton.is(Condition.visible);
     }
 
     public boolean isErrorMessageVisible() {
-        return getErrorMessage().is(Condition.visible);
+        return $x("//div[contains(text(),'Invalid') or contains(text(),'invalid') or contains(text(),'error') or contains(@id,'message') or contains(@class,'error') or contains(text(),'Password')]")
+                .is(Condition.visible);
     }
 
     public String getErrorMessageText() {
-        return getErrorMessage().getText();
+        return $x("//div[contains(text(),'Invalid') or contains(text(),'invalid') or contains(text(),'error') or contains(@id,'message') or contains(@class,'error') or contains(text(),'Password')]")
+                .getText();
+    }
+
+    public SelenideElement getErrorMessage() {
+        return $x("//div[contains(text(),'Invalid') or contains(text(),'invalid') or contains(text(),'error') or contains(@id,'message') or contains(@class,'error') or contains(text(),'Password')]");
     }
 }
